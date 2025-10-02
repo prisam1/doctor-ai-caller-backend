@@ -1,19 +1,3 @@
-// const { createWebCallSession } = require("../services/retellService");
-
-// create web-call session (server-side, returns web call URL or token)
-// exports.createWebCall = async (req, res) => {
-//   try {
-//     const { name, dob } = req.body;
-//     const resp = await createWebCallSession(name, dob);
-//     res.status(201).json(resp);
-//   } catch (error) {
-//     console.log("0-->", error);
-//     res
-//       .status(500)
-//       .json({ error: error.message || "Failed to create Retell session" });
-//   }
-// };
- 
 const { createWebCallSession } = require("../services/retellService");
 const Conversation = require("../models/Conversation");
 const Patient = require("../models/Patient");  

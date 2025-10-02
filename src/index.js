@@ -16,13 +16,15 @@ require("./config/passport");
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
     // origin: process.env.CLIENT_URL,
     origin: ["http://localhost:3000", "http://192.168.31.217:3000"],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Allowed HTTP methods 
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow Authorization header
   })
 );
 app.use(
