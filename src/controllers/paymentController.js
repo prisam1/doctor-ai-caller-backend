@@ -10,7 +10,7 @@ exports.createPaymentIntent = async (req, res) => {
       metadata: { userId: req.user?._id?.toString?.() || "anonymous" },
     });
 
-    console.log("->pi", pi);
+    // console.log("->pi", pi);
     res.status(201).json({ clientSecret: pi.client_secret });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -21,7 +21,7 @@ exports.createPaymentIntent = async (req, res) => {
 exports.webhookHandler = async (req, res) => {
   const sig = req.headers["stripe-signature"];
   try {
-    const event = constructEvent(req.rawBody, sig);
+    const event = constructEvent(req.body, sig);
     if (event.type === "payment_intent.succeeded") {
       const pi = event.data.object;
       const userId = pi.metadata.userId;
@@ -33,7 +33,7 @@ exports.webhookHandler = async (req, res) => {
         currency: pi.currency,
         status: pi.status,
       });
-      console.log("->pi2", pi);
+      // console.log("->pi2", pi);
       await User.findByIdAndUpdate(userId, { stripePaid: true });
     } else if (event.type === "payment_intent.payment_failed") {
       const pi = event.data.object;

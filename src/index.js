@@ -16,13 +16,7 @@ require("./config/passport");
 const app = express();
 const PORT = process.env.PORT;
 
-app.use(
-  express.json({
-    verify: (req, res, buf) => {
-      req.rawBody = buf;
-    },
-  })
-);
+app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
